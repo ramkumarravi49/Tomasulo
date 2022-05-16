@@ -1,0 +1,33 @@
+import os
+import Load_store as ls
+from constants import *
+
+# Prepares the 'testbench' for execution
+def prepare_tb(opcode,a,b):
+    filename = test_benches[opcode]
+    tb_file = open(filename, "r")
+    tb_data = tb_file.readlines()
+
+
+    tb_data[13] = "        a = 64'b" + a + ";\n"     # change value of a
+    tb_data[14] = "        b = 64'b" + b + ";\n"     # change value of b
+
+    # Logic Unit
+    if opcode[:3] == '001':
+        tb_data[15] = "        opcode = 3'b" + opcode[3:] + ";\n"
+
+    tb_file = open(filename, "w")
+    tb_file.writelines(tb_data)
+
+def get_tb_res(opcode):
+    path = test_benches[opcode].split('/')[1]
+    file = test_benches[opcode].split('/')[2]
+    cmd = "cd " + path + " && iverilog " + file + " && vvp .a.out"
+    stream = os.popen("cd {} && iverilog {} && vvp ./a.out".format(path,file))
+    output = stream.readline().strip()
+    return output
+
+############# LOAD STORE ###################
+
+# prepare_tb('000000','1','1')
+# print(get_tb_res('000000'))
