@@ -17,7 +17,7 @@ Tomasulo’s algorithm is used in modern CPUs to enable **out-of-order execution
 
 ## 📁 Repository Structure
 ```bash
-📂 Tomasulo_VLIW
+📂 Tomasulo
 │── 📜 README.md              # This file
 │── 🖥️ Tomasulo.py            # Main execution engine
 │── 📜 Registers.py           # Register file with renaming support
